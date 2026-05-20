@@ -1,18 +1,19 @@
 "use client";
 
-import { useRef } from "react";
-import { Canvas, useFrame } from "@react-three/fiber";
-import { Points, PointMaterial } from "@react-three/drei";
+import { useRef, useMemo } from "react";
+import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Points, PointMaterial, Line } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
+import * as THREE from "three";
 
 function Particles(props: any) {
   const ref = useRef<any>(null);
-  const sphere = random.inSphere(new Float32Array(5000), { radius: 1.5 });
+  const sphere = random.inSphere(new Float32Array(5000), { radius: 2 });
 
   useFrame((state, delta) => {
     if (ref.current) {
-      ref.current.rotation.x -= delta / 10;
-      ref.current.rotation.y -= delta / 15;
+      ref.current.rotation.x -= delta / 20;
+      ref.current.rotation.y -= delta / 30;
     }
   });
 
@@ -22,10 +23,10 @@ function Particles(props: any) {
         <PointMaterial
           transparent
           color="#ffffff"
-          size={0.005}
+          size={0.003}
           sizeAttenuation={true}
           depthWrite={false}
-          opacity={0.6}
+          opacity={0.4}
         />
       </Points>
     </group>
@@ -38,35 +39,96 @@ function WireframeGlobe() {
   useFrame((state, delta) => {
     if (ref.current) {
       ref.current.rotation.y += delta * 0.05;
-      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.2;
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     }
   });
 
   return (
     <mesh ref={ref}>
-      <sphereGeometry args={[1, 32, 32]} />
-      <meshBasicMaterial
-        color="#a3a3a3"
+      <sphereGeometry args={[1.5, 64, 64]} />
+      <meshStandardMaterial
+        color="#ffffff"
         wireframe
         transparent
-        opacity={0.15}
+        opacity={0.4}
+        roughness={0.8}
       />
     </mesh>
   );
 }
 
+function OrbitalRings() {
+  const rings = useRef<THREE.Group>(null);
+
+  useFrame((state, delta) => {
+    if (rings.current) {
+      rings.current.rotation.z += delta * 0.02;
+      rings.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.2) * 0.2 + Math.PI / 3;
+    }
+  });
+
+  const generateRing = (radius: number, points: number) => {
+    const pts = [];
+    for (let i = 0; i <= points; i++) {
+      const angle = (i / points) * Math.PI * 2;
+      pts.push(new THREE.Vector3(Math.cos(angle) * radius, Math.sin(angle) * radius, 0));
+    }
+    return pts;
+  };
+
+  const ring1 = useMemo(() => generateRing(2.2, 100), []);
+  const ring2 = useMemo(() => generateRing(2.6, 100), []);
+
+  return (
+    <group ref={rings}>
+      <Line points={ring1} color="white" opacity={0.15} transparent lineWidth={1} />
+      <Line points={ring2} color="#C5A059" opacity={0.4} transparent lineWidth={1} />
+    </group>
+  );
+}
+
+function MouseLight() {
+  const light = useRef<THREE.PointLight>(null);
+  const { viewport, mouse } = useThree();
+
+  useFrame(() => {
+    if (light.current) {
+      const x = (mouse.x * viewport.width) / 2;
+      const y = (mouse.y * viewport.height) / 2;
+      light.current.position.set(x, y, 2);
+    }
+  });
+
+  return <pointLight ref={light} color="#C5A059" intensity={5} distance={6} />;
+}
+
+function CameraRig() {
+  useFrame((state) => {
+    const scrollY = window.scrollY;
+    // Simple parallax depth based on scroll
+    state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, 4 - scrollY * 0.002, 0.05);
+    state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, scrollY * 0.001, 0.05);
+  });
+  return null;
+}
+
 export default function HeroGlobe() {
   return (
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
-      <Canvas camera={{ position: [0, 0, 3] }}>
-        <fog attach="fog" args={["#0a0a0a", 2, 5]} />
+      <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
+        <fog attach="fog" args={["#0a0a0a", 3, 12]} />
         <ambientLight intensity={0.5} />
+        <MouseLight />
+        <CameraRig />
         <Particles />
         <WireframeGlobe />
+        <OrbitalRings />
       </Canvas>
+      
       {/* Cinematic Gradient Overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_#0a0a0a_80%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent pointer-events-none opacity-80" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0a] via-transparent to-transparent pointer-events-none opacity-50" />
     </div>
   );
 }
