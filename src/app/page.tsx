@@ -37,10 +37,10 @@ export default function Home() {
             initial={{ opacity: 0, filter: "blur(20px)", scale: 1.1 }}
             animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
             transition={{ duration: 1.8, ease: "easeOut" }}
-            className="mb-6 md:mb-12 relative"
+            className="mb-6 md:mb-12 relative py-8 md:py-16"
           >
             <div className="absolute inset-0 bg-[#C5A059]/10 opacity-30 blur-[120px] rounded-full pointer-events-none" />
-            <h2 className="font-cursive text-7xl md:text-[12rem] leading-none tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-[#C5A059]/80 drop-shadow-[0_0_50px_rgba(197,160,89,0.35)] mix-blend-screen relative z-10">
+            <h2 className="font-cursive text-7xl md:text-[12rem] leading-normal tracking-widest text-transparent bg-clip-text bg-gradient-to-b from-white via-white to-[#C5A059]/80 drop-shadow-[0_0_50px_rgba(197,160,89,0.35)] mix-blend-screen relative z-10 py-4">
               PANGAEA
             </h2>
           </motion.div>

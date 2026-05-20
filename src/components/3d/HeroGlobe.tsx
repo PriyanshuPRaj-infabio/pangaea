@@ -1,8 +1,8 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { Points, PointMaterial, Line } from "@react-three/drei";
+import { Points, PointMaterial, Line, useTexture } from "@react-three/drei";
 import * as random from "maath/random/dist/maath-random.esm";
 import * as THREE from "three";
 
@@ -33,8 +33,11 @@ function Particles(props: any) {
   );
 }
 
-function WireframeGlobe() {
-  const ref = useRef<any>(null);
+function SolidGlobe() {
+  const ref = useRef<THREE.Mesh>(null);
+  
+  // Load the grayscale specular map texture to extract continents
+  const texture = useTexture("/earth-specular.jpg");
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -47,11 +50,35 @@ function WireframeGlobe() {
     <mesh ref={ref}>
       <sphereGeometry args={[1.5, 64, 64]} />
       <meshStandardMaterial
-        color="#ffffff"
+        map={texture}
+        bumpMap={texture}
+        bumpScale={0.08}
+        color="#6b7280" // Logo style grey (gray-500)
+        roughness={0.5}
+        metalness={0.8}
+      />
+    </mesh>
+  );
+}
+
+function WireframeGlobe() {
+  const ref = useRef<any>(null);
+
+  useFrame((state, delta) => {
+    if (ref.current) {
+      ref.current.rotation.y += delta * 0.05;
+      ref.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
+    }
+  });
+
+  return (
+    <mesh ref={ref}>
+      <sphereGeometry args={[1.51, 64, 64]} />
+      <meshBasicMaterial
+        color="#C5A059"
         wireframe
         transparent
-        opacity={0.4}
-        roughness={0.8}
+        opacity={0.12}
       />
     </mesh>
   );
@@ -105,7 +132,6 @@ function MouseLight() {
 function CameraRig() {
   useFrame((state) => {
     const scrollY = window.scrollY;
-    // Simple parallax depth based on scroll
     state.camera.position.z = THREE.MathUtils.lerp(state.camera.position.z, 4 - scrollY * 0.002, 0.05);
     state.camera.position.y = THREE.MathUtils.lerp(state.camera.position.y, scrollY * 0.001, 0.05);
   });
@@ -117,11 +143,17 @@ export default function HeroGlobe() {
     <div className="absolute inset-0 w-full h-full pointer-events-none z-0">
       <Canvas camera={{ position: [0, 0, 4], fov: 45 }}>
         <fog attach="fog" args={["#0a0a0a", 3, 12]} />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={0.4} />
+        <directionalLight position={[5, 5, 5]} intensity={1.5} color="#ffffff" />
         <MouseLight />
         <CameraRig />
-        <Particles />
+        
+        <Suspense fallback={null}>
+          <SolidGlobe />
+        </Suspense>
+        
         <WireframeGlobe />
+        <Particles />
         <OrbitalRings />
       </Canvas>
       
