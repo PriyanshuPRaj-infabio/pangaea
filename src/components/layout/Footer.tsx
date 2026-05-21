@@ -43,16 +43,16 @@ export default function Footer() {
 
   return (
     <footer className="relative w-full border-t border-white/10 bg-[#030405] pt-28 pb-12 px-6 md:px-12 overflow-hidden z-20">
-      
+
       {/* Background ambient lighting */}
       <div className="absolute bottom-0 left-0 w-full h-[500px] bg-[#C5A059]/2.5 rounded-full blur-[140px] pointer-events-none mix-blend-screen" />
       <div className="story-grid absolute inset-0 z-0 opacity-15 pointer-events-none" />
 
       <div className="max-w-7xl mx-auto w-full relative z-10">
-        
+
         {/* Top Section: Brand & Newsletter */}
         <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] border-b border-white/10 pb-16 mb-16">
-          
+
           {/* Brand */}
           <div className="space-y-6">
             <Image
@@ -107,7 +107,7 @@ export default function Footer() {
 
         {/* Mid Section: Dense Links Directory */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-20">
-          
+
           {/* Offices Column */}
           <div className="space-y-4">
             <h4 className="uppercase tracking-[0.25em] text-[9px] font-bold text-[#C5A059] border-b border-white/5 pb-2">
@@ -178,6 +178,7 @@ export default function Footer() {
 
         </div>
 
+
         {/* Regulatory Disclaimers & Licensing */}
         <div className="border-t border-white/10 pt-8 pb-12 text-[10px] text-white/30 space-y-4 leading-relaxed font-light">
           <p>
@@ -186,6 +187,42 @@ export default function Footer() {
           <p>
             Past performance, yields, and capital appreciation figures referenced across this portal are sourced from historical transaction indexes and developer audits. Actual returns remain subject to local market volatility, currency shifts, and tax reforms.
           </p>
+        </div>
+        {/* POWERED BY */}
+        <div className="mt-5 flex justify-end">
+          <div className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-3 py-2 transition-all duration-300 hover:bg-white/10">
+
+            <a
+              href="https://fabulousmedia.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-90 hover:opacity-100 transition-opacity"
+              aria-label="FabulousMedia"
+            >
+              <img
+                src="/fabulous-logo.png"
+                alt="FabulousMedia"
+                className="h-3 w-auto"
+              />
+            </a>
+
+            <span className="h-3 w-px bg-white/30" />
+
+            <a
+              href="https://gocommercially.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="opacity-200 hover:opacity-200 transition-opacity"
+              aria-label="GoCommercially"
+            >
+              <img
+                src="/go_tm logo white.png"
+                alt="GoCommercially"
+                className="h-3 w-auto"
+              />
+            </a>
+
+          </div>
         </div>
 
         {/* Bottom copyright & socials */}
