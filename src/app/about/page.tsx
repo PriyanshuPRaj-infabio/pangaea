@@ -2,93 +2,132 @@
 
 import { motion } from "framer-motion";
 import KineticText from "@/components/ui/KineticText";
+import GlowCard from "@/components/ui/GlowCard";
+import { Users2, Target, Heart } from "lucide-react";
 
 export default function About() {
+  const values = [
+    { title: "Global Accessibility", desc: "Real estate should be borderless, allowing sovereign investment structures to be executed with institutional confidence." },
+    { title: "Sovereign Compliance", desc: "At the core of every residency and migration pathway is absolute regulatory compliance and transparency." },
+    { title: "Market Intelligence", desc: "We utilize real-time global yield indices and growth models, discarding speculative assumptions." },
+    { title: "Bespoke Curation", desc: "We filter thousands of international projects to present only pre-audited high-yielding assets." },
+    { title: "Borderless Mindset", desc: "Structuring diversified portfolios across jurisdictions to hedge risk and secure generational wealth." },
+    { title: "Enduring Alignment", desc: "Connecting clients directly with retained developers and top-tier legal counsel worldwide." },
+  ];
+
+  const team = [
+    { name: "Ridhima Sabharwal", role: "CEO & Founder", bio: "Ex-Private Wealth Advisor specializing in cross-border real estate acquisitions and golden visa frameworks." },
+    { name: "Rohan Kukreja", role: "CTO", bio: "Systems architect implementing predictive analytics for real estate yield indexes and digital advisory channels." }
+  ];
+
   return (
-    <div className="w-full flex flex-col pt-40 min-h-screen bg-[#020202] text-white overflow-hidden">
+    <div className="w-full flex flex-col pt-44 min-h-screen bg-transparent text-white overflow-hidden relative z-10">
       
-      {/* Our Mission */}
-      <section className="px-6 md:px-12 py-32 max-w-6xl mx-auto text-center relative">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-white/5 rounded-full blur-[150px] pointer-events-none mix-blend-screen" />
-        <KineticText text="Our Mission" splitBy="char" className="font-cursive text-7xl md:text-[10rem] mb-24 glow-text justify-center" />
+      {/* Decorative Aura */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C5A059]/5 rounded-full blur-[160px] pointer-events-none mix-blend-screen" />
+
+      {/* Header / Intro */}
+      <section className="px-6 md:px-12 py-20 max-w-5xl mx-auto text-center relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="inline-flex items-center gap-3 border border-white/10 bg-white/[0.02] px-5 py-2 text-[10px] font-bold uppercase tracking-[0.3em] text-[#C5A059] rounded-full mb-8"
+        >
+          <Target className="h-4.5 w-4.5 animate-pulse" />
+          The Pangaea Mission
+        </motion.div>
         
-        <div className="space-y-12 text-xl md:text-3xl font-light text-white/70 leading-relaxed text-left md:text-center relative z-10">
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1 }} viewport={{ once: true }}>
-            Inspired by the supercontinent Pangaea that once unified the Earth, we challenge the notion that real estate must be limited by borders.
+        <h1 className="text-balance text-4xl font-light leading-tight text-white md:text-7xl mb-12">
+          Unified Markets, <span className="text-gold-gradient font-serif italic">Borderless Assets</span>
+        </h1>
+
+        <div className="space-y-8 text-lg md:text-2xl font-light text-white/60 leading-relaxed text-center relative z-10 max-w-4xl mx-auto">
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} viewport={{ once: true }}>
+            Inspired by the supercontinent Pangaea that once unified the Earth, we challenge the notion that high-end real estate must be limited by geographical borders.
           </motion.p>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.2 }} viewport={{ once: true }}>
-            As cross-border mobility expands and global wealth redistributes, the need for seamless, intelligent international property investment has never been greater.
-          </motion.p>
-          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }} viewport={{ once: true }} className="text-white">
-            Pangaea Realty offers the guidance, infrastructure, and intelligence to act decisively and strategically.
+          <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }} viewport={{ once: true }}>
+            As cross-border mobility expands, real estate is no longer just shelter—it is a tool for security, mobility, and generational wealth generation.
           </motion.p>
         </div>
       </section>
 
-      {/* Our Core Values */}
-      <section className="relative px-6 md:px-12 py-40 bg-black border-y border-white/5">
-        <div className="absolute inset-0 mesh-gradient opacity-20 pointer-events-none" />
+      {/* Core Values Section */}
+      <section className="relative px-6 md:px-12 py-32 border-y border-white/5 bg-[#050507]/40 backdrop-blur-md">
+        <div className="absolute inset-0 mesh-gradient opacity-10 pointer-events-none" />
         <div className="max-w-7xl mx-auto relative z-10">
-          <KineticText text="Core Values" splitBy="char" className="font-cursive text-6xl md:text-8xl mb-32 text-center" />
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 text-white/60 font-light text-xl md:text-2xl">
-            {[
-              { title: "Global accessibility", desc: "Real estate should be borderless, allowing anyone to invest with confidence." },
-              { title: "Trust and transparency", desc: "At the heart of everything we do, from due diligence to client communication." },
-              { title: "Innovation", desc: "Streamlining the real estate experience, making it faster, simpler, and smarter." },
-              { title: "Minimalist approach", desc: "Ensuring every detail is refined, every interaction purposeful." },
-              { title: "Investor mindset", desc: "Crafting offerings that align with long-term goals across continents." },
-              { title: "Sustainability", desc: "Choosing partners, properties, and practices that build enduring value." },
-            ].map((value, i) => (
-              <motion.div 
+          <div className="mb-24 text-center">
+            <h2 className="text-4xl font-light text-white md:text-5xl">
+              Our Core <span className="text-gold-gradient font-serif italic">Philosophy</span>
+            </h2>
+            <p className="mt-4 text-sm font-light text-white/40 uppercase tracking-widest">Guiding values for cross-border excellence</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {values.map((val, i) => (
+              <motion.div
                 key={i}
-                className="space-y-6 group"
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: i * 0.1 }}
+                transition={{ duration: 0.8, delay: i * 0.1 }}
                 viewport={{ once: true }}
               >
-                <div className="flex items-center gap-4">
-                  <div className="w-8 h-[1px] bg-white/20 group-hover:w-16 group-hover:bg-white transition-all duration-500" />
-                  <strong className="text-white font-normal uppercase tracking-widest text-sm">{value.title}</strong>
-                </div>
-                <p className="pl-12 leading-relaxed">{value.desc}</p>
+                <GlowCard className="p-8 h-full flex flex-col justify-between">
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#C5A059]" />
+                      <h3 className="text-lg font-light text-white tracking-wide">{val.title}</h3>
+                    </div>
+                    <p className="text-sm font-light leading-relaxed text-white/50">{val.desc}</p>
+                  </div>
+                </GlowCard>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Meet the Team */}
-      <section className="px-6 md:px-12 py-40 max-w-7xl mx-auto w-full">
-        <KineticText text="Meet the Team" splitBy="char" className="font-cursive text-6xl md:text-8xl mb-32 text-center" />
+      {/* Meet the Advisory Panel */}
+      <section className="px-6 md:px-12 py-32 max-w-7xl mx-auto w-full relative z-10">
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-32 perspective-[2000px]">
-          {[
-            { name: "Ridhima Sabharwal", role: "CEO & Founder" },
-            { name: "Rohan Kukreja", role: "CTO" }
-          ].map((member, i) => (
+        <div className="mb-24 text-center">
+          <div className="inline-flex items-center gap-3 mb-4">
+            <Users2 className="h-5 w-5 text-[#C5A059]" />
+            <span className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059]">Leadership Desk</span>
+          </div>
+          <h2 className="text-4xl font-light text-white md:text-5xl">
+            Lead <span className="text-gold-gradient font-serif italic">Advisory Partners</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+          {team.map((member, i) => (
             <motion.div
               key={i}
-              className="group relative"
-              whileHover={{ rotateY: i === 0 ? 5 : -5, rotateX: 2, scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 25 }}
-              style={{ transformStyle: "preserve-3d" }}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: i * 0.2 }}
+              viewport={{ once: true }}
             >
-              {/* Cinematic Portrait Card */}
-              <div className="w-full aspect-[3/4] relative bg-white/[0.02] overflow-hidden rounded-2xl border border-white/5 filter grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_var(--mouse-x,_50%)_var(--mouse-y,_50%),_rgba(255,255,255,0.15)_0%,_transparent_50%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none mix-blend-overlay" />
-                
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white/10 font-light tracking-[0.5em] uppercase text-xs rotate-90 whitespace-nowrap">
-                  Cinematic Portrait
+              <GlowCard className="p-10 flex flex-col justify-between h-full">
+                <div className="space-y-6">
+                  {/* Portrait Placeholder with luxury vibe */}
+                  <div className="w-full aspect-[16/10] bg-white/[0.02] border border-white/5 rounded-2xl relative overflow-hidden flex items-center justify-center border-gold-glow">
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#030405] via-transparent to-transparent z-10" />
+                    <div className="absolute text-[10px] font-mono text-white/10 uppercase tracking-[0.4em] select-none">
+                      Pangaea Board Member
+                    </div>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-serif text-white tracking-wide">{member.name}</h3>
+                    <p className="text-xs uppercase tracking-widest text-[#C5A059] font-semibold mt-1">{member.role}</p>
+                  </div>
+                  
+                  <p className="text-sm font-light leading-relaxed text-white/50">{member.bio}</p>
                 </div>
-              </div>
-              
-              <div className="absolute bottom-12 left-12 z-30" style={{ transform: "translateZ(50px)" }}>
-                <h3 className="text-4xl font-light mb-3 text-white drop-shadow-lg">{member.name}</h3>
-                <p className="text-white/70 uppercase tracking-[0.3em] text-xs font-bold drop-shadow-md">{member.role}</p>
-              </div>
+              </GlowCard>
             </motion.div>
           ))}
         </div>

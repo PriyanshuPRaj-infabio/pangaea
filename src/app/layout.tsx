@@ -1,25 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Great_Vibes } from "next/font/google";
+import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/layout/CustomCursor";
 import SmoothScroll from "@/components/layout/SmoothScroll";
+import AtmosphericField from "@/components/3d/AtmosphericField";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
 });
 
-const greatVibes = Great_Vibes({
-  weight: "400",
-  variable: "--font-great-vibes",
+const cormorantGaramond = Cormorant_Garamond({
+  weight: ["300", "400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-serif",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Pangaea Realty | Global Residential Markets",
-  description: "Luxury global real estate intelligence and borderless investment platform.",
+  title: "Pangaea Advisory | Homes & Investments Beyond Borders",
+  description: "Luxury global real estate advisory, sovereign migration pathways, and wealth generation through international property investment.",
 };
 
 export default function RootLayout({
@@ -30,9 +32,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${greatVibes.variable} h-full antialiased bg-black text-white`}
+      className={`${inter.variable} ${cormorantGaramond.variable} h-full antialiased bg-black text-white`}
     >
-      <body className="min-h-full flex flex-col font-sans">
+      <body className="min-h-full flex flex-col font-sans relative">
+        <AtmosphericField />
         <SmoothScroll>
           <div className="noise-bg"></div>
           <CustomCursor />

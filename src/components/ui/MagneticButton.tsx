@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useSpring } from "framer-motion";
 import Link from "next/link";
 
@@ -8,9 +8,10 @@ interface MagneticButtonProps {
   children: React.ReactNode;
   href?: string;
   className?: string;
+  onClick?: () => void;
 }
 
-export default function MagneticButton({ children, href, className = "" }: MagneticButtonProps) {
+export default function MagneticButton({ children, href, className = "", onClick }: MagneticButtonProps) {
   const ref = useRef<HTMLDivElement>(null);
   
   const springConfig = { stiffness: 150, damping: 15, mass: 0.1 };
@@ -44,8 +45,22 @@ export default function MagneticButton({ children, href, className = "" }: Magne
   );
 
   if (href) {
+    if (href.startsWith("#")) {
+      return (
+        <a href={href} onClick={(e) => {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: "smooth" });
+          if (onClick) onClick();
+        }}>{content}</a>
+      );
+    }
     return <Link href={href}>{content}</Link>;
   }
 
-  return <button>{content}</button>;
+  return (
+    <button type="button" onClick={onClick} className="focus:outline-none">
+      {content}
+    </button>
+  );
 }
