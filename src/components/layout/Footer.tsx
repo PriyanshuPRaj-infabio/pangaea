@@ -227,7 +227,7 @@ export default function Footer() {
 
         {/* Bottom copyright & socials */}
         <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row items-center justify-between text-[9px] text-white/40 uppercase tracking-[0.25em]">
-          <p>© {new Date().getFullYear()} Pangaea Realty. All Rights Reserved. Co-designed with Knight Frank Mixed.</p>
+          <p>© {new Date().getFullYear()} Pangaea Realty. All Rights Reserved.</p>
           <div className="flex gap-8 mt-6 md:mt-0 font-semibold text-white/60">
             <Link href="#" className="hover:text-white transition-colors">LinkedIn</Link>
             <Link href="#" className="hover:text-white transition-colors">Instagram</Link>
